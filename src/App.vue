@@ -1,32 +1,58 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <header>
+      <h1>Vue Todo</h1>
+    </header>
+    <div class="wrapper">
+      <router-view/>
     </div>
-    <router-view/>
+    <footer>
+      <small>© 2014 Copyright Text</small>
+    </footer>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<style lang="stylus">
+/* ヘッダ */
+header
+  background #42b983
+  position fixed
+  top 0
+  left 0
+  width 100%
+  height 56px
+  line-height 56px
+  z-index 100
+  h1
+    width 90%
+    max-width 1200px
+    margin 0 auto
+    font-size 16px
+    color #fff
 
-#nav {
-  padding: 30px;
-}
+/*Wrapper*/
+.wrapper
+  width 90%
+  max-width 1200px
+  min-height calc(100vh - 105px) /** margin-top 56px + margin-bottom 24px + footer 25px **/
+  margin 56px auto 24px
+  overflow hidden /* marginが突き抜けるのを回避 */
+  &:before /* marginの相殺回避 */
+    display block
+    content ''
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+/*Footer*/
+footer
+  width 100%
+  height 25px
+  background #42b983
+  margin 0
+  small
+    display block
+    margin 0 auto
+    width 90%
+    max-width 1200px
+    font-size 12px
+    line-height 25px
+    color #fff
 </style>
