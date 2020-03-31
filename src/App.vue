@@ -7,7 +7,7 @@
       <router-view/>
     </div>
     <footer>
-      <small>© 2014 Copyright Text</small>
+      <small>© 2020 Shun Sato</small>
     </footer>
   </div>
 </template>
