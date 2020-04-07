@@ -9,6 +9,13 @@
       :tasks="tasks"
       @delete="deleteTask"
     />
+    <p
+      :class="[{[$style.hidden]: allTasks.length === 0 }, $style.resetButton]"
+      @click="resetTasks"
+    >
+      reset tasks
+      <i class="fas fa-redo"></i>
+    </p>
     <div :class="$style.add">
       <AddTaskForm
         :disabled="addTaskDisabled"
@@ -20,7 +27,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import storage from '../storage/storage'
 
 import StatusRadioButton from '../components/StatusRadioButton.vue'
 import TaskList from '../components/TaskList.vue'
@@ -60,25 +67,20 @@ export default {
   },
   methods: {
     async getTasks () {
-      const tasks = (await axios.get('http://localhost:8081/')).data
+      const tasks = await storage.get()
       this.allTasks = tasks
     },
     addTask (comment) {
       if (!comment) return
 
-      axios
-        .post('http://localhost:8081/', {
+      storage
+        .post({
           status: 'new',
           comment
         })
-        .then(() => {
-          const getId = () => {
-            if (this.allTasks.length === 0) return 1
-            return this.allTasks[this.allTasks.length - 1].id + 1
-          }
-
+        .then((id) => {
           this.allTasks.push({
-            id: getId(),
+            id,
             comment,
             status: 'new'
           })
@@ -86,12 +88,16 @@ export default {
         })
     },
     deleteTask (id) {
-      axios
-        .delete(`http://localhost:8081/${id}`)
+      storage
+        .delete(id)
         .then(() => {
           const index = this.allTasks.findIndex((v) => v.id === id)
           this.allTasks.splice(index, 1)
         })
+    },
+    resetTasks () {
+      storage
+        .deleteDb()
     },
     changeStatus (name) {
       const prevSelectedIndex = this.statusList.findIndex((item) => item.name === this.statusName)
@@ -118,4 +124,15 @@ export default {
   margin 56px 0 24px 0
 .add
   margin-top 24px
+.resetButton
+  font-size 12px
+  margin-top 5px
+  color #999
+  i
+    margin-left 3px
+    color #bbb
+  &.hidden
+    display none
+  &:hover
+    cursor pointer
 </style>

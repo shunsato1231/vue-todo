@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import storage from '../storage/storage'
 import EditForm from '../components/EditForm.vue'
 
 export default {
@@ -47,18 +47,18 @@ export default {
   },
   methods: {
     async getTask () {
-      const task = (await axios.get(`http://localhost:8081/${this.$route.params.id}`)).data
+      const task = await storage.get(this.$route.params.id)
       this.task = JSON.parse(JSON.stringify(task))
       this.beforeChangeTask = JSON.parse(JSON.stringify(task))
     },
     async updateTask () {
       if (!this.task.comment) return
 
-      await axios.put(`http://localhost:8081/${this.$route.params.id}`, this.task)
+      await storage.put(this.task)
       this.$router.push('/')
     },
     async deleteTask () {
-      await axios.delete(`http://localhost:8081/${this.$route.params.id}`)
+      await storage.delete(this.$route.params.id)
       this.$router.push('/')
     }
   }
