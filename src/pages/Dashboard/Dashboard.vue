@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import storage from '../storage/storage'
+import storage from '../../storage/storage'
 
-import StatusRadioButton from '../components/StatusRadioButton.vue'
-import TaskList from '../components/TaskList.vue'
-import AddTaskForm from '../components/AddTaskForm.vue'
+import StatusRadioButton from '../../components/StatusRadioButton/StatusRadioButton.vue'
+import TaskList from '../../components/TaskList/TaskList.vue'
+import AddTaskForm from '../../components/AddTaskForm/AddTaskForm.vue'
 
 export default {
   name: 'Dashboard',

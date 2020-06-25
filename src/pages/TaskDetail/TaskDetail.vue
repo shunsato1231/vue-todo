@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import storage from '../storage/storage'
-import EditForm from '../components/EditForm.vue'
+import storage from '../../storage/storage'
+import EditForm from '../../components/EditForm/EditForm.vue'
 
 export default {
   name: 'TaskDetail',

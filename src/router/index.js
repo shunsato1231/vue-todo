@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Dashboard from '../pages/Dashboard.vue'
-import TaskDetail from '../pages/TaskDetail.vue'
+import Dashboard from '../pages/Dashboard/Dashboard.vue'
+import TaskDetail from '../pages/TaskDetail/TaskDetail.vue'
 
 Vue.use(VueRouter)
 
