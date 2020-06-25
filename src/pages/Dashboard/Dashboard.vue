@@ -62,8 +62,8 @@ export default {
       return this.allTasks.filter((task) => task.status === this.statusName)
     }
   },
-  created () {
-    this.getTasks()
+  async created () {
+    await this.getTasks()
   },
   methods: {
     async getTasks () {
@@ -95,9 +95,10 @@ export default {
           this.allTasks.splice(index, 1)
         })
     },
-    resetTasks () {
-      storage
-        .deleteDb()
+    async resetTasks () {
+      await storage.dispose()
+      await storage.open()
+      await this.getTasks()
     },
     changeStatus (name) {
       const prevSelectedIndex = this.statusList.findIndex((item) => item.name === this.statusName)
